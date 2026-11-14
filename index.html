@@ -4,59 +4,196 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VOID VPN</title>
+<title>VOID VPN — Твой интернет. Твои правила.</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#090910;color:white;font-family:Arial,sans-serif;padding:22px}
-main{max-width:460px;margin:auto}
-.logo{font-size:25px;font-weight:900;letter-spacing:4px;color:#a78bfa}
-.hero{margin-top:35px;padding:25px;border-radius:22px;background:linear-gradient(135deg,#30204f,#151323);border:1px solid #553b81}
-h1{font-size:32px;margin:15px 0}
-p{color:#aaa9bc;line-height:1.6}
-h2{margin-top:30px}
-.card{background:#151520;border:1px solid #29283b;border-radius:17px;padding:19px;margin:12px 0}
-.price{font-size:24px;font-weight:bold;color:#c4a5ff}
-button{width:100%;padding:14px;border:0;border-radius:12px;background:#8051df;color:white;font-size:15px;font-weight:bold;margin-top:12px}
-.tag{color:#a78bfa;font-size:12px}
+body{
+ margin:0;background:#090910;color:#fff;
+ font-family:Arial,sans-serif;padding:20px;
+}
+main{max-width:480px;margin:auto;padding-bottom:35px}
+.logo{font-size:25px;font-weight:900;letter-spacing:4px;color:#ad8aff}
+.top{display:flex;justify-content:space-between;align-items:center}
+.status{font-size:11px;color:#a78bfa;background:#211832;padding:8px 12px;border-radius:20px}
+.hero{
+ margin-top:28px;padding:26px;border-radius:24px;
+ background:linear-gradient(140deg,#39225e,#171323 75%);
+ border:1px solid #513779;
+}
+.tag{color:#b99aff;font-size:11px;letter-spacing:2px}
+h1{font-size:34px;line-height:1.12;margin:18px 0 12px}
+p{color:#aaa9bc;line-height:1.55;font-size:14px}
+h2{font-size:21px;margin:30px 0 15px}
+h3{margin:0 0 12px;font-size:18px}
+.card{
+ background:#151520;border:1px solid #29283b;
+ border-radius:18px;padding:20px;margin:12px 0;
+}
+.price{font-size:27px;font-weight:bold;color:#c4a5ff;margin:12px 0}
+.small{font-size:12px;color:#77768b}
+button{
+ width:100%;padding:15px;border:0;border-radius:12px;
+ background:linear-gradient(100deg,#8051df,#a16cf4);
+ color:white;font-size:14px;font-weight:bold;
+ margin-top:13px;cursor:pointer;
+}
+button.secondary{background:#29243a;border:1px solid #51406d}
+button:active{transform:scale(.98)}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.value{font-size:14px;color:#c9b5ff;text-align:right;overflow-wrap:anywhere}
+.key{
+ background:#0b0b13;padding:14px;border-radius:12px;
+ color:#aaa9bc;font-size:12px;overflow-wrap:anywhere;margin-top:12px;
+}
+.line{height:1px;background:#29283b;margin:16px 0}
+.hidden{display:none}
+footer{text-align:center;color:#626174;font-size:11px;margin-top:30px}
 </style>
 </head>
 <body>
 <main>
-<div class="logo">VOID VPN</div>
+
+<div class="top">
+ <div class="logo">VOID VPN</div>
+ <div class="status">● PRIVATE CONNECTION</div>
+</div>
+
 <section class="hero">
-<div class="tag">PRIVATE CONNECTION</div>
-<h1>Твой интернет.<br>Твои правила.</h1>
-<p>Безопасное подключение и удобное управление VPN в Telegram.</p>
-<button onclick="document.getElementById('plans').scrollIntoView({behavior:'smooth'})">Выбрать тариф</button>
+ <div class="tag">WELCOME TO VOID</div>
+ <h1>Твой интернет.<br>Твои правила.</h1>
+ <p>Свобода подключения, удобное управление и безопасность в одном приложении.</p>
+ <button onclick="goTo('plans')">Выбрать тариф</button>
 </section>
-<h2 id="plans">Тарифы VOID VPN</h2>
-<div class="card">
-<h3>30 дней</h3>
-<div class="price">Скоро</div>
-<p>Подписка на 1 месяц</p>
-<button onclick="alert('Скоро подключим оплату')">Выбрать</button>
+
+<h2>Тарифы VOID VPN</h2>
+<div id="plans">
+
+ <div class="card">
+  <div class="tag">START</div>
+  <h3>30 дней</h3>
+  <div class="price">Скоро</div>
+  <p>Подписка на 1 месяц</p>
+  <button onclick="buy('30 дней')">Выбрать тариф</button>
+ </div>
+
+ <div class="card">
+  <div class="tag">POPULAR</div>
+  <h3>90 дней</h3>
+  <div class="price">Скоро</div>
+  <p>Подписка на 3 месяца</p>
+  <button onclick="buy('90 дней')">Выбрать тариф</button>
+ </div>
+
+ <div class="card">
+  <div class="tag">PREMIUM</div>
+  <h3>365 дней</h3>
+  <div class="price">Скоро</div>
+  <p>Подписка на 1 год</p>
+  <button onclick="buy('365 дней')">Выбрать тариф</button>
+ </div>
+
 </div>
-<div class="card">
-<h3>90 дней</h3>
-<div class="price">Скоро</div>
-<p>Подписка на 3 месяца</p>
-<button onclick="alert('Скоро подключим оплату')">Выбрать</button>
-</div>
-<div class="card">
-<h3>365 дней</h3>
-<div class="price">Скоро</div>
-<p>Подписка на 1 год</p>
-<button onclick="alert('Скоро подключим оплату')">Выбрать</button>
-</div>
-<div class="card">
+
 <h2>Личный кабинет</h2>
-<p>Управление подпиской и VPN-ключом будет доступно после авторизации через Telegram.</p>
-</div>
 <div class="card">
-<h2>Приглашай друзей</h2>
-<p>Скоро появится реферальная программа VOID VPN.</p>
+ <div class="row">
+  <span class="small">Пользователь</span>
+  <span class="value" id="username">Гость</span>
+ </div>
+ <div class="line"></div>
+ <div class="row">
+  <span class="small">Telegram ID</span>
+  <span class="value" id="userid">Не определён</span>
+ </div>
+ <div class="line"></div>
+ <div class="row">
+  <span class="small">Статус аккаунта</span>
+  <span class="value">Аккаунт создан</span>
+ </div>
 </div>
-<p style="text-align:center;font-size:12px">© VOID VPN 2026</p>
+
+<h2>Моя подписка</h2>
+<div class="card">
+ <div class="row">
+  <h3>Текущий тариф</h3>
+  <span class="status">DEMO</span>
+ </div>
+ <div class="price">Не активна</div>
+ <p>После подключения оплаты здесь появятся твой тариф и дата окончания подписки.</p>
+ <button class="secondary" onclick="goTo('plans')">Продлить подписку</button>
+</div>
+
+<h2>Мой VPN-ключ</h2>
+<div class="card">
+ <h3>Подключение</h3>
+ <p>Здесь будет отображаться твой персональный VPN-ключ.</p>
+ <div class="key" id="vpnkey">VPN-ключ пока не выдан</div>
+ <button class="secondary" onclick="copyKey()">Скопировать ключ</button>
+ <p class="small">Реальная выдача ключа подключается через сервер.</p>
+</div>
+
+<h2>Приглашай друзей</h2>
+<div class="card">
+ <h3>Реферальная программа</h3>
+ <p>Приглашай друзей в VOID VPN. Здесь будет отображаться твоя реферальная ссылка и статистика приглашений.</p>
+ <div class="key" id="referral">Ссылка появится после подключения бота</div>
+ <button onclick="shareReferral()">Пригласить друга</button>
+ <div class="line"></div>
+ <div class="row">
+  <span class="small">Приглашено пользователей</span>
+  <span class="value">0</span>
+ </div>
+</div>
+
+<footer>© VOID VPN 2026<br>Твой интернет. Твои правила.</footer>
 </main>
+
+<script>
+const tg = window.Telegram?.WebApp;
+let currentUser = null;
+
+if (tg) {
+ tg.ready();
+ tg.expand();
+ currentUser = tg.initDataUnsafe?.user || null;
+}
+
+if (currentUser) {
+ document.getElementById('username').textContent =
+  currentUser.username ? '@' + currentUser.username :
+  [currentUser.first_name, currentUser.last_name].filter(Boolean).join(' ');
+
+ document.getElementById('userid').textContent = currentUser.id;
+} else {
+ document.getElementById('username').textContent = 'Открой через Telegram';
+}
+
+function goTo(id) {
+ document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+function buy(plan) {
+ const message = 'Тариф ' + plan +
+  '. Оплата пока не подключена. Скоро появится возможность покупки.';
+ if (tg) tg.showAlert(message);
+ else alert(message);
+}
+
+function copyKey() {
+ const key = document.getElementById('vpnkey').textContent;
+ if (key === 'VPN-ключ пока не выдан') {
+  alert('Сначала необходимо подключить сервер и выдачу ключей.');
+  return;
+ }
+ navigator.clipboard.writeText(key)
+  .then(() => alert('Ключ скопирован'))
+  .catch(() => alert('Не удалось скопировать ключ'));
+}
+
+function shareReferral() {
+ alert('Реферальная ссылка появится после подключения бота и backend.');
+}
+</script>
 </body>
 </html>
