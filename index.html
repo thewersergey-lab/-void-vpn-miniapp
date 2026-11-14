@@ -149,16 +149,47 @@ footer{text-align:center;color:#626174;font-size:11px;margin-top:30px}
 <footer>© VOID VPN 2026<br>Твой интернет. Твои правила.</footer>
 </main>
 
+
 <script>
 const API_URL = "https://begins-marks-again-papers.trycloudflare.com";
- const tg = window.Telegram?.WebApp;
+const tg = window.Telegram?.WebApp;
 let currentUser = null;
+let userData = null;
 
 if (tg) {
- tg.ready();
- tg.expand();
- currentUser = tg.initDataUnsafe?.user || null;
+    tg.ready();
+    tg.expand();
+    currentUser = tg.initDataUnsafe?.user || null;
 }
+
+async function loadUserData() {
+    if (!tg || !tg.initData) {
+        console.log("VOID VPN: Telegram authorization unavailable");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/api/me`, {
+            method: "GET",
+            headers: {
+                "Authorization": `tma ${tg.initData}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`API error: ${response.status}`);
+        }
+
+        userData = await response.json();
+        console.log("VOID VPN: user loaded", userData);
+    } catch (error) {
+        console.error("VOID VPN: authorization failed", error);
+    }
+}
+
+loadUserData();
+</script>
+
 
 if (currentUser) {
  document.getElementById('username').textContent =
