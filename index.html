@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>VOID VPN — Твой интернет. Твои правила.</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 <style>
 *{box-sizing:border-box}
 body{
@@ -51,6 +52,7 @@ button:active{transform:scale(.98)}
 footer{text-align:center;color:#626174;font-size:11px;margin-top:30px}
 </style>
 </head>
+
 <body>
 <main>
 
@@ -142,17 +144,18 @@ footer{text-align:center;color:#626174;font-size:11px;margin-top:30px}
  <div class="line"></div>
  <div class="row">
   <span class="small">Приглашено пользователей</span>
-  <span class="value">0</span>
+  <span class="value" id="referralCount">0</span>
  </div>
 </div>
 
 <footer>© VOID VPN 2026<br>Твой интернет. Твои правила.</footer>
-</main>
 
+</main>
 
 <script>
 const API_URL = "https://begins-marks-again-papers.trycloudflare.com";
 const tg = window.Telegram?.WebApp;
+
 let currentUser = null;
 let userData = null;
 
@@ -162,6 +165,29 @@ if (tg) {
     currentUser = tg.initDataUnsafe?.user || null;
 }
 
+function showMessage(message) {
+    if (tg) {
+        tg.showAlert(message);
+    } else {
+        alert(message);
+    }
+}
+
+// Отображение Telegram-пользователя
+if (currentUser) {
+    document.getElementById('username').textContent =
+        currentUser.username
+        ? '@' + currentUser.username
+        : [currentUser.first_name, currentUser.last_name]
+            .filter(Boolean).join(' ');
+
+    document.getElementById('userid').textContent = currentUser.id;
+} else {
+    document.getElementById('username').textContent =
+        'Открой через Telegram';
+}
+
+// Загрузка данных пользователя с API
 async function loadUserData() {
     if (!tg || !tg.initData) {
         console.log("VOID VPN: Telegram authorization unavailable");
@@ -181,51 +207,66 @@ async function loadUserData() {
         }
 
         userData = await response.json();
+
         console.log("VOID VPN: user loaded", userData);
+
+        // Если API вернул данные пользователя
+        if (userData.username) {
+            document.getElementById('username').textContent =
+                userData.username.startsWith('@')
+                ? userData.username
+                : '@' + userData.username;
+        }
+
+        if (userData.telegram_id) {
+            document.getElementById('userid').textContent =
+                userData.telegram_id;
+        } else if (userData.id) {
+            document.getElementById('userid').textContent =
+                userData.id;
+        }
+
     } catch (error) {
         console.error("VOID VPN: authorization failed", error);
     }
 }
 
 loadUserData();
-</script>
-
-
-if (currentUser) {
- document.getElementById('username').textContent =
-  currentUser.username ? '@' + currentUser.username :
-  [currentUser.first_name, currentUser.last_name].filter(Boolean).join(' ');
-
- document.getElementById('userid').textContent = currentUser.id;
-} else {
- document.getElementById('username').textContent = 'Открой через Telegram';
-}
 
 function goTo(id) {
- document.getElementById(id).scrollIntoView({behavior:'smooth'});
+    document.getElementById(id).scrollIntoView({
+        behavior: 'smooth'
+    });
 }
 
 function buy(plan) {
- const message = 'Тариф ' + plan +
-  '. Оплата пока не подключена. Скоро появится возможность покупки.';
- if (tg) tg.showAlert(message);
- else alert(message);
+    showMessage(
+        'Тариф ' + plan +
+        '. Оплата пока не подключена. Скоро появится возможность покупки.'
+    );
 }
 
 function copyKey() {
- const key = document.getElementById('vpnkey').textContent;
- if (key === 'VPN-ключ пока не выдан') {
-  alert('Сначала необходимо подключить сервер и выдачу ключей.');
-  return;
- }
- navigator.clipboard.writeText(key)
-  .then(() => alert('Ключ скопирован'))
-  .catch(() => alert('Не удалось скопировать ключ'));
+    const key = document.getElementById('vpnkey').textContent;
+
+    if (key === 'VPN-ключ пока не выдан') {
+        showMessage(
+            'Сначала необходимо подключить сервер и выдачу ключей.'
+        );
+        return;
+    }
+
+    navigator.clipboard.writeText(key)
+        .then(() => showMessage('Ключ скопирован'))
+        .catch(() => showMessage('Не удалось скопировать ключ'));
 }
 
 function shareReferral() {
- alert('Реферальная ссылка появится после подключения бота и backend.');
+    showMessage(
+        'Реферальная ссылка появится после подключения бота и backend.'
+    );
 }
 </script>
+
 </body>
 </html>
