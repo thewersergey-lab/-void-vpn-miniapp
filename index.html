@@ -3,270 +3,320 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VOID VPN — Твой интернет. Твои правила.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#080912">
+<title>VOID VPN — Private Connection</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
 <style>
+:root{
+ --bg:#080912;--card:#111321;--card2:#171a2b;
+ --purple:#9b7bff;--cyan:#64e4ff;--muted:#858ba5;
+ --border:rgba(160,145,255,.16);--green:#5be0a0;
+}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
- margin:0;background:#090910;color:#fff;
- font-family:Arial,sans-serif;padding:20px;
+ margin:0;background:
+ radial-gradient(ellipse at 10% 0%,rgba(105,65,190,.20),transparent 38%),
+ radial-gradient(ellipse at 100% 35%,rgba(37,125,180,.10),transparent 35%),
+ var(--bg);
+ color:#fff;font-family:Inter,Arial,sans-serif;padding:18px;
 }
-main{max-width:480px;margin:auto;padding-bottom:35px}
-.logo{font-size:25px;font-weight:900;letter-spacing:4px;color:#ad8aff}
+main{max-width:480px;margin:auto;padding-bottom:40px}
 .top{display:flex;justify-content:space-between;align-items:center}
-.status{font-size:11px;color:#a78bfa;background:#211832;padding:8px 12px;border-radius:20px}
+.logo{font-size:24px;font-weight:900;letter-spacing:4px}
+.logo span{color:var(--purple)}
+.status{
+ font-size:10px;letter-spacing:1px;color:var(--green);
+ background:rgba(91,224,160,.09);border:1px solid rgba(91,224,160,.2);
+ border-radius:30px;padding:9px 11px;
+}
 .hero{
- margin-top:28px;padding:26px;border-radius:24px;
- background:linear-gradient(140deg,#39225e,#171323 75%);
- border:1px solid #513779;
+ position:relative;overflow:hidden;margin-top:25px;padding:27px 23px;
+ border:1px solid var(--border);border-radius:26px;
+ background:linear-gradient(135deg,#29204b 0%,#17172c 55%,#10202e 100%);
+ box-shadow:0 15px 50px #0005;
 }
-.tag{color:#b99aff;font-size:11px;letter-spacing:2px}
-h1{font-size:34px;line-height:1.12;margin:18px 0 12px}
-p{color:#aaa9bc;line-height:1.55;font-size:14px}
-h2{font-size:21px;margin:30px 0 15px}
-h3{margin:0 0 12px;font-size:18px}
-.card{
- background:#151520;border:1px solid #29283b;
- border-radius:18px;padding:20px;margin:12px 0;
+.hero:after{
+ content:"";position:absolute;width:190px;height:190px;right:-75px;top:-75px;
+ border-radius:50%;background:#9b7bff33;filter:blur(35px);
 }
-.price{font-size:27px;font-weight:bold;color:#c4a5ff;margin:12px 0}
-.small{font-size:12px;color:#77768b}
+.tag{font-size:10px;letter-spacing:2.5px;color:#c5afff;font-weight:bold}
+h1{font-size:35px;line-height:1.12;margin:19px 0 12px;letter-spacing:-1px}
+p{font-size:13px;line-height:1.65;color:#a5a9bf}
+.hero p{max-width:290px}
 button{
- width:100%;padding:15px;border:0;border-radius:12px;
- background:linear-gradient(100deg,#8051df,#a16cf4);
- color:white;font-size:14px;font-weight:bold;
- margin-top:13px;cursor:pointer;
+ width:100%;border:0;border-radius:13px;padding:15px 16px;margin-top:14px;
+ color:#fff;font-size:13px;font-weight:800;cursor:pointer;
+ background:linear-gradient(100deg,#7954e8,#a17cff);
+ box-shadow:0 7px 22px #8057df35;transition:.2s;
 }
-button.secondary{background:#29243a;border:1px solid #51406d}
 button:active{transform:scale(.98)}
-.row{display:flex;justify-content:space-between;gap:12px;align-items:center}
-.value{font-size:14px;color:#c9b5ff;text-align:right;overflow-wrap:anywhere}
-.key{
- background:#0b0b13;padding:14px;border-radius:12px;
- color:#aaa9bc;font-size:12px;overflow-wrap:anywhere;margin-top:12px;
+button.secondary{
+ background:#202238;border:1px solid var(--border);box-shadow:none;
 }
-.line{height:1px;background:#29283b;margin:16px 0}
-.hidden{display:none}
-footer{text-align:center;color:#626174;font-size:11px;margin-top:30px}
+h2{font-size:19px;margin:30px 0 13px;letter-spacing:-.3px}
+h3{font-size:16px;margin:7px 0}
+.card{
+ padding:19px;margin:11px 0;border-radius:19px;
+ background:linear-gradient(145deg,rgba(24,27,45,.96),rgba(15,17,29,.98));
+ border:1px solid var(--border);
+ box-shadow:0 9px 30px #0002;
+}
+.plan-top,.row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.plan-label{font-size:10px;letter-spacing:2px;color:var(--purple);font-weight:bold}
+.price{font-size:25px;font-weight:900;margin:13px 0 5px}
+.muted{font-size:12px;color:var(--muted)}
+.pill{
+ padding:7px 10px;border-radius:20px;font-size:10px;
+ background:#29233f;color:#c8b5ff;white-space:nowrap;
+}
+.popular{border-color:#9574f5;box-shadow:0 0 25px #9875ff16}
+.line{height:1px;background:var(--border);margin:15px 0}
+.field{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.field-label{font-size:12px;color:var(--muted)}
+.value{
+ max-width:65%;font-size:13px;font-weight:700;color:#e4dcff;
+ text-align:right;overflow-wrap:anywhere;
+}
+.big-status{font-size:22px;font-weight:900;margin:13px 0 5px}
+.active{color:var(--green)}
+.inactive{color:#ff9caa}
+.key{
+ padding:14px;border-radius:12px;background:#090b14;
+ border:1px solid var(--border);color:#aeb3ca;
+ font-size:12px;overflow-wrap:anywhere;margin-top:13px;
+}
+.ref-link{color:#c9baff}
+.icon{
+ width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+ background:#282342;color:#c7b3ff;font-size:17px;
+}
+.ref-head{display:flex;align-items:center;gap:12px}
+footer{text-align:center;color:#60657d;font-size:10px;line-height:1.8;margin-top:30px}
+button:disabled{opacity:.5;cursor:default}
 </style>
 </head>
-
 <body>
 <main>
+ <div class="top">
+  <div class="logo">VOID <span>VPN</span></div>
+  <div class="status">● PRIVATE CONNECTION</div>
+ </div>
 
-<div class="top">
- <div class="logo">VOID VPN</div>
- <div class="status">● PRIVATE CONNECTION</div>
-</div>
+ <section class="hero">
+  <div class="tag">WELCOME TO VOID</div>
+  <h1>Твой интернет.<br>Твои правила.</h1>
+  <p>Свобода подключения, удобное управление и безопасность в одном приложении.</p>
+  <button onclick="goTo('plans')">Выбрать тариф <span>→</span></button>
+ </section>
 
-<section class="hero">
- <div class="tag">WELCOME TO VOID</div>
- <h1>Твой интернет.<br>Твои правила.</h1>
- <p>Свобода подключения, удобное управление и безопасность в одном приложении.</p>
- <button onclick="goTo('plans')">Выбрать тариф</button>
-</section>
+ <h2>Тарифы VOID VPN</h2>
+ <div id="plans">
+  <div class="card">
+   <div class="plan-top"><span class="plan-label">START</span><span class="pill">30 ДНЕЙ</span></div>
+   <div class="price">Скоро</div>
+   <p>Подписка на 1 месяц</p>
+   <button class="secondary" onclick="buy('30 дней')">Выбрать тариф</button>
+  </div>
+  <div class="card popular">
+   <div class="plan-top"><span class="plan-label">POPULAR ✦</span><span class="pill">90 ДНЕЙ</span></div>
+   <div class="price">Скоро</div>
+   <p>Подписка на 3 месяца</p>
+   <button onclick="buy('90 дней')">Выбрать тариф</button>
+  </div>
+  <div class="card">
+   <div class="plan-top"><span class="plan-label">PREMIUM</span><span class="pill">365 ДНЕЙ</span></div>
+   <div class="price">Скоро</div>
+   <p>Подписка на 1 год</p>
+   <button class="secondary" onclick="buy('365 дней')">Выбрать тариф</button>
+  </div>
+ </div>
 
-<h2>Тарифы VOID VPN</h2>
-<div id="plans">
-
+ <h2>Личный кабинет</h2>
  <div class="card">
-  <div class="tag">START</div>
-  <h3>30 дней</h3>
-  <div class="price">Скоро</div>
-  <p>Подписка на 1 месяц</p>
-  <button onclick="buy('30 дней')">Выбрать тариф</button>
+  <div class="field"><span class="field-label">Имя и фамилия</span><span class="value" id="fullname">Загрузка...</span></div>
+  <div class="line"></div>
+  <div class="field"><span class="field-label">Username</span><span class="value" id="username">Загрузка...</span></div>
+  <div class="line"></div>
+  <div class="field"><span class="field-label">Telegram ID</span><span class="value" id="userid">Загрузка...</span></div>
+  <div class="line"></div>
+  <div class="field"><span class="field-label">Аккаунт</span><span class="value" id="accountStatus">Проверка...</span></div>
  </div>
 
+ <h2>Моя подписка</h2>
  <div class="card">
-  <div class="tag">POPULAR</div>
-  <h3>90 дней</h3>
-  <div class="price">Скоро</div>
-  <p>Подписка на 3 месяца</p>
-  <button onclick="buy('90 дней')">Выбрать тариф</button>
+  <div class="plan-top"><h3>Текущая подписка</h3><span class="pill" id="planBadge">VOID VPN</span></div>
+  <div class="big-status inactive" id="subStatus">Загрузка...</div>
+  <p id="subDescription">Получаем информацию о подписке из базы данных.</p>
+  <div class="line"></div>
+  <div class="field"><span class="field-label">Действует до</span><span class="value" id="subDate">—</span></div>
+  <button class="secondary" onclick="goTo('plans')">Продлить подписку</button>
  </div>
 
+ <h2>Мой VPN-ключ</h2>
  <div class="card">
-  <div class="tag">PREMIUM</div>
-  <h3>365 дней</h3>
-  <div class="price">Скоро</div>
-  <p>Подписка на 1 год</p>
-  <button onclick="buy('365 дней')">Выбрать тариф</button>
+  <div class="ref-head"><div class="icon">⌁</div><div><h3>Защищённое подключение</h3><span class="muted">Твой персональный ключ</span></div></div>
+  <div class="key" id="vpnkey">VPN-ключ пока не выдан</div>
+  <button class="secondary" onclick="copyKey()">Скопировать ключ</button>
+  <p class="muted">Выдача ключей будет подключена после настройки VPN-сервера.</p>
  </div>
 
-</div>
-
-<h2>Личный кабинет</h2>
-<div class="card">
- <div class="row">
-  <span class="small">Пользователь</span>
-  <span class="value" id="username">Гость</span>
+ <h2>Приглашай друзей</h2>
+ <div class="card">
+  <div class="ref-head"><div class="icon">↗</div><div><h3>Реферальная программа</h3><span class="muted">Приглашай друзей в VOID VPN</span></div></div>
+  <p>Поделись своей ссылкой и следи за количеством приглашённых пользователей.</p>
+  <div class="key ref-link" id="referral">Загрузка ссылки...</div>
+  <button onclick="shareReferral()">Пригласить друга</button>
+  <button class="secondary" onclick="copyReferral()">Скопировать ссылку</button>
+  <div class="line"></div>
+  <div class="field"><span class="field-label">Приглашено пользователей</span><span class="value" id="referralCount">—</span></div>
  </div>
- <div class="line"></div>
- <div class="row">
-  <span class="small">Telegram ID</span>
-  <span class="value" id="userid">Не определён</span>
- </div>
- <div class="line"></div>
- <div class="row">
-  <span class="small">Статус аккаунта</span>
-  <span class="value">Аккаунт создан</span>
- </div>
-</div>
 
-<h2>Моя подписка</h2>
-<div class="card">
- <div class="row">
-  <h3>Текущий тариф</h3>
-  <span class="status">DEMO</span>
- </div>
- <div class="price">Не активна</div>
- <p>После подключения оплаты здесь появятся твой тариф и дата окончания подписки.</p>
- <button class="secondary" onclick="goTo('plans')">Продлить подписку</button>
-</div>
-
-<h2>Мой VPN-ключ</h2>
-<div class="card">
- <h3>Подключение</h3>
- <p>Здесь будет отображаться твой персональный VPN-ключ.</p>
- <div class="key" id="vpnkey">VPN-ключ пока не выдан</div>
- <button class="secondary" onclick="copyKey()">Скопировать ключ</button>
- <p class="small">Реальная выдача ключа подключается через сервер.</p>
-</div>
-
-<h2>Приглашай друзей</h2>
-<div class="card">
- <h3>Реферальная программа</h3>
- <p>Приглашай друзей в VOID VPN. Здесь будет отображаться твоя реферальная ссылка и статистика приглашений.</p>
- <div class="key" id="referral">Ссылка появится после подключения бота</div>
- <button onclick="shareReferral()">Пригласить друга</button>
- <div class="line"></div>
- <div class="row">
-  <span class="small">Приглашено пользователей</span>
-  <span class="value" id="referralCount">0</span>
- </div>
-</div>
-
-<footer>© VOID VPN 2026<br>Твой интернет. Твои правила.</footer>
-
+ <footer>© VOID VPN 2026<br>Твой интернет. Твои правила.</footer>
 </main>
 
 <script>
 const API_URL = "https://brings-ascii-lonely-injuries.trycloudflare.com";
 const tg = window.Telegram?.WebApp;
-
-let currentUser = null;
 let userData = null;
+let referralData = null;
 
 if (tg) {
-    tg.ready();
-    tg.expand();
-    currentUser = tg.initDataUnsafe?.user || null;
+ tg.ready();
+ tg.expand();
 }
 
-function showMessage(message) {
-    if (tg) {
-        tg.showAlert(message);
-    } else {
-        alert(message);
-    }
+function message(text) {
+ if (tg) tg.showAlert(text);
+ else alert(text);
 }
 
-// Отображение Telegram-пользователя
-if (currentUser) {
-    document.getElementById('username').textContent =
-        currentUser.username
-        ? '@' + currentUser.username
-        : [currentUser.first_name, currentUser.last_name]
-            .filter(Boolean).join(' ');
-
-    document.getElementById('userid').textContent = currentUser.id;
-} else {
-    document.getElementById('username').textContent =
-        'Открой через Telegram';
+function setText(id, value) {
+ const el = document.getElementById(id);
+ if (el) el.textContent = value;
 }
-
-// Загрузка данных пользователя с API
-async function loadUserData() {
-    if (!tg || !tg.initData) {
-        console.log("VOID VPN: Telegram authorization unavailable");
-        return;
-    }
-
-    try {
-        const response = await fetch(`${API_URL}/api/me`, {
-            method: "GET",
-            headers: {
-                "Authorization": `tma ${tg.initData}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`API error: ${response.status}`);
-        }
-
-        userData = await response.json();
-
-        console.log("VOID VPN: user loaded", userData);
-
-        // Если API вернул данные пользователя
-        if (userData.username) {
-            document.getElementById('username').textContent =
-                userData.username.startsWith('@')
-                ? userData.username
-                : '@' + userData.username;
-        }
-
-        if (userData.telegram_id) {
-            document.getElementById('userid').textContent =
-                userData.telegram_id;
-        } else if (userData.id) {
-            document.getElementById('userid').textContent =
-                userData.id;
-        }
-
-    } catch (error) {
-        console.error("VOID VPN: authorization failed", error);
-    }
-}
-
-loadUserData();
 
 function goTo(id) {
-    document.getElementById(id).scrollIntoView({
-        behavior: 'smooth'
-    });
+ document.getElementById(id)?.scrollIntoView({behavior:"smooth"});
+}
+
+function formatDate(value) {
+ if (!value) return "Не указана";
+ const date = new Date(value);
+ if (Number.isNaN(date.getTime())) return String(value);
+ return new Intl.DateTimeFormat("ru-RU", {
+  day:"numeric",month:"long",year:"numeric"
+ }).format(date);
+}
+
+function renderTelegramUser(user) {
+ if (!user) {
+  setText("fullname","Открой через Telegram");
+  setText("username","—");
+  setText("userid","—");
+  return;
+ }
+ const fullName = [user.first_name,user.last_name].filter(Boolean).join(" ");
+ setText("fullname",fullName || "Не указано");
+ setText("username",user.username ? "@"+user.username : "Не указан");
+ setText("userid",user.id ?? "—");
+}
+
+function renderSubscription(data) {
+ const active = Boolean(data.subscription_active);
+ const until = data.subscription_until;
+ const status = document.getElementById("subStatus");
+ status.textContent = active ? "● Активна" : (until ? "Истекла" : "Не активна");
+ status.className = "big-status " + (active ? "active" : "inactive");
+ setText("subDescription",active
+  ? "Твоя подписка действует. Пользуйся VOID VPN."
+  : "Подписка сейчас не активна. Выбери тариф, чтобы подключиться.");
+ setText("subDate",formatDate(until));
+ setText("planBadge",active ? "АКТИВНА" : "НЕ АКТИВНА");
+ setText("accountStatus","Аккаунт найден");
+}
+
+async function apiGet(path) {
+ if (!tg?.initData) throw new Error("Открой Mini App через Telegram");
+ const response = await fetch(`${API_URL}${path}`, {
+  method:"GET",
+  headers:{"X-Telegram-Init-Data":tg.initData}
+ });
+ if (!response.ok) {
+  const body = await response.text();
+  throw new Error(`API ${response.status}: ${body}`);
+ }
+ return response.json();
+}
+
+async function loadUserData() {
+ renderTelegramUser(tg?.initDataUnsafe?.user);
+ if (!tg?.initData) {
+  setText("accountStatus","Нет авторизации");
+  setText("subStatus","Открой через Telegram");
+  setText("subDescription","Данные профиля доступны при запуске приложения из Telegram.");
+  return;
+ }
+ try {
+  userData = await apiGet("/api/me");
+  renderTelegramUser({
+   id:userData.user_id,
+   first_name:userData.first_name,
+   last_name:userData.last_name,
+   username:userData.username
+  });
+  renderSubscription(userData);
+ } catch(error) {
+  console.error("VOID VPN /api/me:",error);
+  setText("accountStatus","Ошибка загрузки");
+  setText("subStatus","Не удалось загрузить");
+  setText("subDescription","Не удалось получить данные подписки. Попробуй открыть приложение ещё раз.");
+ }
+}
+
+async function loadReferralData() {
+ try {
+  referralData = await apiGet("/api/referral");
+  setText("referralCount",referralData.referral_count ?? 0);
+  setText("referral",referralData.referral_link || "Добавь BOT_USERNAME в .env");
+ } catch(error) {
+  console.error("VOID VPN /api/referral:",error);
+  setText("referral","Не удалось загрузить ссылку");
+  setText("referralCount","—");
+ }
 }
 
 function buy(plan) {
-    showMessage(
-        'Тариф ' + plan +
-        '. Оплата пока не подключена. Скоро появится возможность покупки.'
-    );
+ message("Тариф "+plan+". Оплата пока не подключена.");
 }
 
 function copyKey() {
-    const key = document.getElementById('vpnkey').textContent;
+ message("VPN-ключ пока не выдан. Сначала подключим VPN-сервер.");
+}
 
-    if (key === 'VPN-ключ пока не выдан') {
-        showMessage(
-            'Сначала необходимо подключить сервер и выдачу ключей.'
-        );
-        return;
-    }
-
-    navigator.clipboard.writeText(key)
-        .then(() => showMessage('Ключ скопирован'))
-        .catch(() => showMessage('Не удалось скопировать ключ'));
+async function copyReferral() {
+ const link = referralData?.referral_link;
+ if (!link) return message("Реферальная ссылка пока недоступна.");
+ try {
+  await navigator.clipboard.writeText(link);
+  message("Реферальная ссылка скопирована!");
+ } catch {
+  message("Не удалось скопировать ссылку.");
+ }
 }
 
 function shareReferral() {
-    showMessage(
-        'Реферальная ссылка появится после подключения бота и backend.'
-    );
+ const link = referralData?.referral_link;
+ if (!link) return message("Реферальная ссылка пока недоступна.");
+ const shareUrl = "https://t.me/share/url?url="+encodeURIComponent(link)+
+  "&text="+encodeURIComponent("Подключайся к VOID VPN!");
+ if (tg) tg.openTelegramLink(shareUrl);
+ else window.open(shareUrl,"_blank");
 }
-</script>
 
+loadUserData();
+loadReferralData();
+</script>
 </body>
 </html>
