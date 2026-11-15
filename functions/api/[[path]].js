@@ -9,8 +9,13 @@ export async function onRequest(context) {
   }
 
   const incoming = new URL(request.url);
+
+  const path = incoming.pathname === "/api/health"
+    ? "/health"
+    : incoming.pathname;
+
   const target = new URL(
-    incoming.pathname + incoming.search,
+    path + incoming.search,
     env.API_ORIGIN
   );
 
