@@ -50,7 +50,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
  color:#aaa9bc;font-size:12px;overflow-wrap:anywhere;margin-top:12px;
 }
 .line{height:1px;background:#29283b;margin:16px 0}
-footer{text-align:center;color:#626174;font-size:11px;margin-top:30px}
+footer{text-align:center;color:#626174;font-size:11px;margin-top:30px} footer a{color:#b99aff;text-decoration:none}
 .notice{font-size:12px;color:#b99aff;margin-top:12px}
 </style>
 </head>
@@ -87,6 +87,14 @@ footer{text-align:center;color:#626174;font-size:11px;margin-top:30px}
   <div class="price">399 ₽</div>
   <p>Подписка на 3 месяца</p>
   <button onclick="buy('quarter')">Выбрать тариф</button>
+ </div>
+
+ <div class="card">
+  <div class="tag">PLUS</div>
+  <h3>180 дней</h3>
+  <div class="price">699 ₽</div>
+  <p>Подписка на 6 месяцев</p>
+  <button onclick="buy('halfyear')">Выбрать тариф</button>
  </div>
 
  <div class="card">
@@ -161,12 +169,23 @@ footer{text-align:center;color:#626174;font-size:11px;margin-top:30px}
 
 <div id="message" class="notice"></div>
 
-<footer>© VOID VPN 2026<br>Твой интернет. Твои правила.</footer>
+<footer>
+ <div>© VOID VPN 2026 · Твой интернет. Твои правила.</div>
+ <p>
+  <a href="https://t.me/VoidVPNConnectBot">Telegram-бот VOID VPN</a>
+  · <a href="mailto:serheyd@inbox.ru">Email</a>
+ </p>
+ <p>
+  <a href="https://voidvpn-app.ru/offer.html">Пользовательское соглашение</a>
+  · <a href="https://voidvpn-app.ru/privacy.html">Политика конфиденциальности</a>
+  · <a href="https://voidvpn-app.ru/refund.html">Условия возврата</a>
+ </p>
+</footer>
 </main>
 
 <script>
 const tg = window.Telegram?.WebApp;
-const API_URL = "https://seasons-letting-jason-tours.trycloudflare.com";
+const API_URL = "https://api.voidvpn-app.ru";
 
 let profile = null;
 let referralLink = null;
